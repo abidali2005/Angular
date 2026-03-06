@@ -1,13 +1,28 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { CommonModule } from '@angular/common';
+import {
+  CardModule,
+  GridModule,
+  TableModule,
+  ButtonModule,
+  FormModule
+} from '@coreui/angular';
 @Component({
   selector: 'app-form',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
   templateUrl: './form.component.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    CardModule,
+    GridModule,
+    TableModule,
+    ButtonModule,
+    FormModule
+  ]
 })
+
 export class FormComponent {
 
   role: string = '';

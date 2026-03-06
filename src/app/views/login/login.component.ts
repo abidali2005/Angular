@@ -3,10 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+
+import {
+  CardModule,
+  GridModule,
+  ButtonModule,
+  FormModule
+} from '@coreui/angular';
+
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CardModule,
+    GridModule,
+    ButtonModule,
+    FormModule
+  ],
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
@@ -15,58 +30,63 @@ export class LoginComponent {
   password: string = '';
   role: string = '';
 
-constructor(private http: HttpClient, private router: Router) {}
-login() {
+  constructor(private http: HttpClient, private router: Router) {}
 
-  let apiUrl = '';
+  login() {
 
-  if (this.role === 'clerk') {
-    apiUrl = 'https://69a9403832e2d46caf45a991.mockapi.io/api/v1/authenticate';
-  }
+    let apiUrl = '';
 
-  if (this.role === 'admin') {
-    apiUrl = 'https://69a9403832e2d46caf45a991.mockapi.io/api/v1/authenticate-admin';
-  }
+    if (this.role === 'clerk') {
+      apiUrl = 'https://69a9403832e2d46caf45a991.mockapi.io/api/v1/authenticate';
+    }
 
-  this.http.get(apiUrl).subscribe((response:any) => {
+    if (this.role === 'admin') {
+      apiUrl = 'https://69a9403832e2d46caf45a991.mockapi.io/api/v1/authenticate-admin';
+    }
 
-    console.log("API Response:", response);
-
-    const token = response[0]?.token;   // SAFE ACCESS
-
-    if(!token){
-      alert("Token not found in API response");
+    if (!apiUrl) {
+      alert("Please select role");
       return;
     }
 
-    console.log("JWT Token:", token);
+    this.http.get(apiUrl).subscribe((response: any) => {
 
-    const decoded = this.decodeToken(token);
+      console.log("API Response:", response);
 
-    console.log("Decoded Token:", decoded);
+      const token = response[0]?.token;
 
-    localStorage.setItem("token", token);
+      if (!token) {
+        alert("Token not found in API response");
+        return;
+      }
 
-    alert("Login Successful");
+      console.log("JWT Token:", token);
 
-    this.router.navigate(['/form']);
+      const decoded = this.decodeToken(token);
 
-  });
+      console.log("Decoded Token:", decoded);
 
-}
+      localStorage.setItem("token", token);
 
- decodeToken(token: string) {
+      alert("Login Successful");
 
-  if(!token){
-    return null;
+      this.router.navigate(['/form']);
+
+    });
+
   }
 
-  const payload = token.split('.')[1];
+  decodeToken(token: string) {
 
-  const decodedPayload = atob(payload);
+    if (!token) {
+      return null;
+    }
 
-  return JSON.parse(decodedPayload);
+    const payload = token.split('.')[1];
+    const decodedPayload = atob(payload);
 
-}
+    return JSON.parse(decodedPayload);
+
+  }
 
 }

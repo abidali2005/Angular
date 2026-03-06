@@ -1,36 +1,69 @@
-<div style="width:400px;margin:auto;margin-top:100px">
+<c-container class="min-vh-100 d-flex align-items-center justify-content-center">
 
-  <h2>Login</h2>
+  <c-row class="w-100 justify-content-center">
 
-  <form (ngSubmit)="login()">
+    <c-col xs="12" sm="10" md="6" lg="4">
 
-    <div>
-      <label>Email</label>
-      <input type="text" [(ngModel)]="email" name="email" class="form-control">
-    </div>
+      <c-card class="p-4 shadow-lg">
 
-    <br>
+        <c-card-header class="text-center border-0">
+          <h2 class="fw-bold">Login</h2>
+        </c-card-header>
 
-    <div>
-      <label>Password</label>
-      <input type="password" [(ngModel)]="password" name="password" class="form-control">
-    </div>
+        <c-card-body>
 
-    <br>
+          <form (ngSubmit)="login()">
 
-    <div>
-      <label>Select Role</label>
-      <select [(ngModel)]="role" name="role" class="form-control">
-        <option value="">Select Role</option>
-        <option value="clerk">Clerk</option>
-        <option value="admin">Admin</option>
-      </select>
-    </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input
+                cFormControl
+                type="email"
+                placeholder="Enter email"
+                [(ngModel)]="email"
+                name="email">
+            </div>
 
-    <br>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input
+                cFormControl
+                type="password"
+                placeholder="Enter password"
+                [(ngModel)]="password"
+                name="password">
+            </div>
 
-    <button type="submit">Login</button>
+            <div class="mb-4">
+              <label class="form-label">Select Role</label>
 
-  </form>
+              <select
+                cFormControl
+                [(ngModel)]="role"
+                name="role">
 
-</div>
+                <option value="">Select Role</option>
+                <option value="clerk">Clerk</option>
+                <option value="admin">Admin</option>
+
+              </select>
+
+            </div>
+
+            <div class="d-grid">
+              <button cButton color="primary" type="submit">
+                Login
+              </button>
+            </div>
+
+          </form>
+
+        </c-card-body>
+
+      </c-card>
+
+    </c-col>
+
+  </c-row>
+
+</c-container>
