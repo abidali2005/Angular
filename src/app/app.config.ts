@@ -1,5 +1,8 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { importProvidersFrom } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { provideHttpClient } from '@angular/common/http';
 import {
   provideRouter,
   withEnabledBlockingInitialNavigation,
@@ -13,7 +16,7 @@ import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes,
+      provideRouter(routes,
       withRouterConfig({
         onSameUrlNavigation: 'reload'
       }),
@@ -25,8 +28,11 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions(),
       withHashLocation()
     ),
+    provideHttpClient(),
     IconSetService,
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    importProvidersFrom(FormsModule)
+
   ]
 };
 

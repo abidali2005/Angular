@@ -1,0 +1,132 @@
+<div style="width:600px;margin:auto;margin-top:50px">
+
+  <h2>Role-Based Form</h2>
+  <p>Your Role: <strong>{{role}}</strong></p>
+
+  <form (ngSubmit)="submitForm()">
+
+    <!-- CLERK FORM -->
+    <div *ngIf="formRole === 'clerk'">
+
+      <div>
+        <label>Joint Name</label>
+        <input type="text"
+        [(ngModel)]="jointName"
+        name="jointName"
+        class="form-control">
+      </div>
+
+      <div>
+        <label>Joint Category</label>
+        <input type="text"
+        [(ngModel)]="jointCategory"
+        name="jointCategory"
+        class="form-control">
+      </div>
+
+      <div>
+        <label>Joint Material</label>
+        <input type="text"
+        [(ngModel)]="jointMaterial"
+        name="jointMaterial"
+        class="form-control">
+      </div>
+
+    </div>
+
+
+    <!-- ADMIN FORM -->
+    <div *ngIf="formRole === 'admin'">
+
+      <div>
+        <label>Submission Id</label>
+        <input type="number"
+        [(ngModel)]="submissionId"
+        name="submissionId"
+        class="form-control"
+        placeholder="Enter numeric ID">
+      </div>
+
+      <div>
+        <label>Joint Status (Date)</label>
+        <input type="date"
+        [(ngModel)]="jointStatus"
+        name="jointStatus"
+        class="form-control">
+      </div>
+
+      <div>
+        <label>Approval Status</label>
+
+        <select
+        [(ngModel)]="approvalStatus"
+        name="approvalStatus"
+        class="form-control">
+
+          <option value="">Select Status</option>
+          <option value="Approved">Approved</option>
+          <option value="Pending">Pending</option>
+          <option value="Rejected">Rejected</option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+    <br>
+    <button type="submit">Submit</button>
+
+  </form>
+
+
+  <!-- TABLE -->
+  <div *ngIf="submittedData.length > 0" style="margin-top:30px;">
+
+    <h3>Submitted Data</h3>
+
+    <table border="1" width="100%" cellpadding="5">
+
+      <thead>
+
+        <tr>
+
+          <th>Role</th>
+
+          <th *ngIf="formRole === 'clerk'">Joint Name</th>
+          <th *ngIf="formRole === 'clerk'">Joint Category</th>
+          <th *ngIf="formRole === 'clerk'">Joint Material</th>
+
+          <th *ngIf="formRole === 'admin'">Submission Id</th>
+          <th *ngIf="formRole === 'admin'">Joint Status</th>
+          <th *ngIf="formRole === 'admin'">Approval Status</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let data of submittedData">
+
+          <td>{{data.role}}</td>
+
+          <!-- Clerk Data -->
+          <td *ngIf="data.role === 'Clerk'">{{data.jointName}}</td>
+          <td *ngIf="data.role === 'Clerk'">{{data.jointCategory}}</td>
+          <td *ngIf="data.role === 'Clerk'">{{data.jointMaterial}}</td>
+
+          <!-- Admin Data -->
+          <td *ngIf="data.role === 'Admin'">{{data.submissionId}}</td>
+          <td *ngIf="data.role === 'Admin'">{{data.jointStatus}}</td>
+          <td *ngIf="data.role === 'Admin'">{{data.approvalStatus}}</td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
