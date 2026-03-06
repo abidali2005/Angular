@@ -13,9 +13,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
-    "build": "ng build",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "prebuild": "ng test --watch=false",
+    "prebuild": "ng test --watch=false",  
     "test": "ng test"
   },
   "private": true,
@@ -58,7 +58,7 @@
     "vitest": "^4.0.18"
   },
   "engines": {
-    "node": "^20.19.0 || ^22.12.0 || ^24.0.0",
+    "node": "^20.19.0 || ^22.12.0 || ^24.0.0 || ^25.2.1",
     "npm": ">=10"
   },
   "bugs": {
